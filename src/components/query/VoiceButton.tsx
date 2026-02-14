@@ -14,19 +14,16 @@ interface VoiceButtonProps {
 export function VoiceButton({ onTranscript, language, className }: VoiceButtonProps) {
   const {
     isListening,
-    transcript,
     interimTranscript,
     error,
     isSupported,
     startListening,
     stopListening,
-  } = useVoiceInput(language);
+  } = useVoiceInput({
+    language,
+    onResult: onTranscript
+  });
 
-  useEffect(() => {
-    if (transcript) {
-      onTranscript(transcript);
-    }
-  }, [transcript, onTranscript]);
 
   if (!isSupported) {
     return (

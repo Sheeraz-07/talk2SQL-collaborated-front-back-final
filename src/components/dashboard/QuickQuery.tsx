@@ -9,6 +9,7 @@ import { Search, Sparkles, ArrowRight, Zap } from 'lucide-react';
 import { useQueryStore } from '@/stores/queryStore';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const popularQueries = [
   { text: 'Sales today', icon: '💰' },
@@ -23,7 +24,8 @@ interface QuickQueryProps {
 
 export function QuickQuery({ className }: QuickQueryProps) {
   const router = useRouter();
-  const { setQuery } = useQueryStore();
+  const { setQuery, language, setLanguage } = useQueryStore();
+  const { t } = useTranslation();
   const [query, setLocalQuery] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -48,14 +50,10 @@ export function QuickQuery({ className }: QuickQueryProps) {
               <Sparkles className="h-5 w-5 text-accent" />
             </div>
             <div>
-              <CardTitle className="text-lg font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">Quick Query</CardTitle>
-              <CardDescription className="text-xs mt-0.5 font-semibold">Ask about your data</CardDescription>
+              <CardTitle className="text-lg font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">{t('quickQuery')}</CardTitle>
+              <CardDescription className="text-xs mt-0.5 font-semibold">{t('askAboutData')}</CardDescription>
             </div>
           </div>
-          <Badge variant="secondary" className="gap-1.5 rounded-full px-3 py-1 font-bold text-xs shadow-sm">
-            <Zap className="h-3.5 w-3.5" />
-            AI-Powered
-          </Badge>
         </div>
       </CardHeader>
       <CardContent>
@@ -65,7 +63,7 @@ export function QuickQuery({ className }: QuickQueryProps) {
             <Input
               value={query}
               onChange={(e) => setLocalQuery(e.target.value)}
-              placeholder="Ask a question in natural language..."
+              placeholder={t('askQuestionPlaceholder')}
               className="pl-11 pr-28 h-12 rounded-full border-2 bg-muted/30 font-semibold text-sm shadow-sm hover:shadow-md hover:border-accent/60 dark:hover:border-accent/70 focus:shadow-xl transition-all duration-300"
             />
             <Button
@@ -74,12 +72,12 @@ export function QuickQuery({ className }: QuickQueryProps) {
               className="absolute right-2 top-1/2 -translate-y-1/2 h-8 rounded-full font-bold text-xs shadow-md hover:shadow-lg"
               disabled={!query.trim()}
             >
-              Ask
+              {t('ask')}
               <ArrowRight className="ml-1 h-3.5 w-3.5" />
             </Button>
           </div>
           <div>
-            <p className="text-xs font-bold text-muted-foreground mb-2.5 tracking-wide">Popular queries:</p>
+            <p className="text-xs font-bold text-muted-foreground mb-2.5 tracking-wide">{t('popularQueries')}</p>
             <div className="flex flex-wrap gap-2">
               {popularQueries.map((q) => (
                 <Badge
@@ -96,6 +94,6 @@ export function QuickQuery({ className }: QuickQueryProps) {
           </div>
         </form>
       </CardContent>
-    </Card>
+    </Card >
   );
 }

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Clock, Play, Star, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useQueryStore } from '@/stores/queryStore';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface RecentQueryListProps {
   className?: string;
@@ -14,6 +15,7 @@ interface RecentQueryListProps {
 
 export function RecentQueryList({ className, limit = 5 }: RecentQueryListProps) {
   const router = useRouter();
+  const { t } = useTranslation();
   const { history, toggleFavorite, setQuery } = useQueryStore();
   const recentQueries = history.slice(0, limit);
 
@@ -42,12 +44,12 @@ export function RecentQueryList({ className, limit = 5 }: RecentQueryListProps) 
             <Clock className="h-5 w-5 text-accent" />
           </div>
           <div>
-            <h3 className="font-bold text-base">Recent Queries</h3>
-            <p className="text-xs text-muted-foreground font-semibold">Your latest activity</p>
+            <h3 className="font-bold text-base">{t('recentQueries')}</h3>
+            <p className="text-xs text-muted-foreground font-semibold">{t('latestActivity')}</p>
           </div>
         </div>
         <Button variant="ghost" size="sm" onClick={() => router.push('/history')} className="rounded-full font-bold text-xs hover:bg-accent/25 dark:hover:bg-accent/35 hover:scale-105 hover:shadow-md transition-all">
-          View all
+          {t('viewAllGeneral')}
         </Button>
       </div>
       <div className="p-5 pt-4">
@@ -58,10 +60,10 @@ export function RecentQueryList({ className, limit = 5 }: RecentQueryListProps) 
                 <Clock className="h-8 w-8 text-muted-foreground" />
               </div>
               <p className="text-sm font-medium text-muted-foreground">
-                No queries yet
+                {t('noQueries')}
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                Start asking questions to see them here!
+                {t('startAsking')}
               </p>
             </div>
           ) : (
@@ -73,7 +75,7 @@ export function RecentQueryList({ className, limit = 5 }: RecentQueryListProps) 
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold truncate">{query.naturalQuery}</p>
                   <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1.5 font-semibold">
-                    <span>{query.rowCount} rows</span>
+                    <span>{query.rowCount} {t('rows')}</span>
                     <span>•</span>
                     <span>{query.executionTime.toFixed(2)}s</span>
                     <span>•</span>

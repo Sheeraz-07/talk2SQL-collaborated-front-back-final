@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 import { Send, Sparkles, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -34,6 +35,8 @@ const exampleQueries = {
   ],
 };
 
+
+
 export function QueryInterface() {
   const {
     currentQuery,
@@ -46,6 +49,8 @@ export function QueryInterface() {
     executeQuery,
     clearResults,
   } = useQueryStore();
+
+  const { t } = useTranslation();
 
   const [isFocused, setIsFocused] = useState(false);
 
@@ -80,6 +85,11 @@ export function QueryInterface() {
     toast.success('Query saved to favorites');
   };
 
+  // Example queries can remain here or move to translations. 
+  // For now, let's keep them here but maybe use translations for the header "Try these examples"
+
+  // ...
+
   return (
     <div className="space-y-6">
       {/* Query Input Card */}
@@ -98,41 +108,35 @@ export function QueryInterface() {
               onKeyDown={handleKeyDown}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              placeholder={
-                language === 'en'
-                  ? "Ask about employees, attendance, inventory, production, or sales..."
-                  : "Employees, attendance, inventory, production, ya sales k baray me pochain..."
-              }
-              className="min-h-[50px] text-sm resize-none pr-14 focus-visible:ring-0 border-0 shadow-none bg-secondary/30 rounded-xl py-2"
+              placeholder={t('askPlaceholder')}
+              className="min-h-[40px] text-sm resize-none pr-12 focus-visible:ring-0 border-0 shadow-none bg-secondary/30 rounded-xl py-1.5"
               disabled={isLoading}
             />
-            <div className="absolute right-2 top-1/2 -translate-y-1/2">
-              <VoiceButton onTranscript={handleVoiceTranscript} language={language} />
+            <div className="absolute right-1.5 top-1/2 -translate-y-1/2">
+              <VoiceButton onTranscript={handleVoiceTranscript} language={language} className="h-7 w-7" />
             </div>
           </div>
 
           {/* Controls Row */}
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <LanguageToggle current={language} onChange={setLanguage} />
-
+          <div className="flex items-center justify-end flex-wrap gap-2">
             <div className="flex items-center gap-2">
               {results && (
-                <Button type="button" variant="outline" onClick={clearResults}>
-                  <RotateCcw className="h-4 w-4 mr-2" />
-                  Clear
+                <Button type="button" variant="outline" size="sm" onClick={clearResults} className="h-8">
+                  <RotateCcw className="h-3.5 w-3.5 mr-2" />
+                  {t('clear')}
                 </Button>
               )}
-              <Button type="submit" disabled={isLoading || !currentQuery.trim()} size="lg">
+              <Button type="submit" disabled={isLoading || !currentQuery.trim()} className="h-8 px-4">
                 {isLoading ? (
                   <span className="flex items-center gap-2">
-                    <span className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                    Processing...
+                    <span className="h-3.5 w-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                    {t('processing')}
                   </span>
                 ) : (
                   <span className="flex items-center gap-2">
-                    <Sparkles className="h-4 w-4" />
-                    Ask
-                    <Send className="h-4 w-4" />
+                    <Sparkles className="h-3.5 w-3.5" />
+                    {t('askButton')}
+                    <Send className="h-3.5 w-3.5" />
                   </span>
                 )}
               </Button>
@@ -144,7 +148,7 @@ export function QueryInterface() {
         {!results && !isLoading && (
           <div className="mt-4 pt-4 border-t border-border">
             <p className="text-sm text-muted-foreground mb-3">
-              💡 Try these examples:
+              {t('tryExamples')}
             </p>
             <div className="flex flex-wrap gap-2">
               {exampleQueries[language].map((query) => (
@@ -172,7 +176,7 @@ export function QueryInterface() {
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-4">
               <Badge variant="outline" className="text-sm py-1 px-3">
-                📊 {results.rowCount} rows
+                📊 {results.rowCount} {t('rows')}
               </Badge>
               <Badge variant="outline" className="text-sm py-1 px-3">
                 ⚡ {results.executionTime.toFixed(2)}s
@@ -181,15 +185,15 @@ export function QueryInterface() {
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm" onClick={handleSaveQuery}>
                 <Save className="h-4 w-4 mr-2" />
-                Save
+                {t('save')}
               </Button>
               <Button variant="outline" size="sm">
                 <BarChart3 className="h-4 w-4 mr-2" />
-                Visualize
+                {t('visualize')}
               </Button>
               <Button variant="outline" size="sm" onClick={handleSubmit}>
                 <RefreshCw className="h-4 w-4 mr-2" />
-                Re-run
+                {t('rerun')}
               </Button>
             </div>
           </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslation } from '@/hooks/useTranslation';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -30,29 +31,33 @@ interface SidebarProps {
   onToggle: () => void;
 }
 
-const mainNavItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', path: '/dashboard' },
-  { icon: MessageSquare, label: 'Query', path: '/query' },
-  { icon: History, label: 'History', path: '/history' },
-  { icon: FileText, label: 'Reports', path: '/reports' },
-  { icon: BarChart3, label: 'Analytics', path: '/analytics' },
-];
 
-const adminNavItems = [
-  { icon: Database, label: 'Databases', path: '/admin/databases' },
-  { icon: Users, label: 'Users', path: '/admin/users' },
-  { icon: Shield, label: 'Roles', path: '/admin/roles' },
-  { icon: Activity, label: 'Logs', path: '/admin/logs' },
-];
-
-const bottomNavItems = [
-  { icon: Settings, label: 'Settings', path: '/settings' },
-  { icon: HelpCircle, label: 'Help', path: '/help' },
-];
 
 export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
   const pathname = usePathname();
   const { user, logout } = useAuthStore();
+  const { t } = useTranslation();
+
+  const mainNavItems = [
+    { icon: LayoutDashboard, label: t('dashboard'), path: '/dashboard' },
+    { icon: MessageSquare, label: t('query'), path: '/query' },
+    { icon: History, label: t('history'), path: '/history' },
+    { icon: FileText, label: t('reports'), path: '/reports' },
+    { icon: BarChart3, label: t('analytics'), path: '/analytics' },
+  ];
+
+  /* Admin items - keeping as is for now */
+  const adminNavItems = [
+    { icon: Database, label: t('admin'), path: '/admin/databases' },
+    { icon: Users, label: 'Users', path: '/admin/users' },
+    { icon: Shield, label: 'Roles', path: '/admin/roles' },
+    { icon: Activity, label: 'Logs', path: '/admin/logs' },
+  ];
+
+  const bottomNavItems = [
+    { icon: Settings, label: t('settings'), path: '/settings' },
+    { icon: HelpCircle, label: t('help'), path: '/help' },
+  ];
 
   const NavItem = ({ icon: Icon, label, path }: { icon: React.ElementType; label: string; path: string }) => {
     const isActive = pathname === path || pathname.startsWith(path + '/');

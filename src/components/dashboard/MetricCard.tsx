@@ -1,6 +1,7 @@
 import { LucideIcon } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 import { ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
 
 interface MetricCardProps {
@@ -13,6 +14,8 @@ interface MetricCardProps {
 }
 
 export function MetricCard({ title, value, change, icon: Icon, trend, className }: MetricCardProps) {
+  const { t } = useTranslation();
+
   return (
     <Card className={cn(
       'p-4 group overflow-hidden relative max-w-[100%]',
@@ -48,7 +51,7 @@ export function MetricCard({ title, value, change, icon: Icon, trend, className 
           <p className="text-xl font-bold bg-gradient-to-br from-foreground to-foreground/70 bg-clip-text leading-tight">{value}</p>
           {change !== undefined && (
             <p className="text-[9px] text-muted-foreground font-semibold leading-tight">
-              {trend === 'up' ? '↑ Increase' : trend === 'down' ? '↓ Decrease' : '→ No change'}
+              {trend === 'up' ? `↑ ${t('increase')}` : trend === 'down' ? `↓ ${t('decrease')}` : `→ ${t('noChange')}`}
             </p>
           )}
         </div>

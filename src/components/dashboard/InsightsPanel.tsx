@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { TrendingUp, TrendingDown, AlertTriangle, Lightbulb } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface Insight {
   id: string;
@@ -16,6 +17,7 @@ interface InsightsPanelProps {
 }
 
 export function InsightsPanel({ insights, className }: InsightsPanelProps) {
+  const { t } = useTranslation();
   const getIcon = (trend: string) => {
     switch (trend) {
       case 'up':
@@ -50,8 +52,8 @@ export function InsightsPanel({ insights, className }: InsightsPanelProps) {
             <Lightbulb className="h-5 w-5 text-chart-4" />
           </div>
           <div>
-            <h3 className="font-bold text-base">AI Insights</h3>
-            <p className="text-xs text-muted-foreground font-semibold">Smart recommendations</p>
+            <h3 className="font-bold text-base">{t('aiInsights')}</h3>
+            <p className="text-xs text-muted-foreground font-semibold">{t('smartRecommendations')}</p>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Card } from '@/components/ui/card';
 import { MessageSquare, FileText, BarChart3, HelpCircle, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const shortcuts = [
   {
@@ -50,6 +51,46 @@ interface ShortcutsGridProps {
 
 export function ShortcutsGrid({ className }: ShortcutsGridProps) {
   const router = useRouter();
+  const { t } = useTranslation();
+
+  const shortcuts = [
+    {
+      icon: MessageSquare,
+      label: t('newQuery'),
+      description: t('askDb'),
+      path: '/query',
+      gradient: 'from-accent/20 to-accent/5',
+      iconBg: 'bg-accent',
+      iconColor: 'text-accent-foreground',
+    },
+    {
+      icon: FileText,
+      label: t('reports'),
+      description: t('reportsDescription'),
+      path: '/reports',
+      gradient: 'from-success/20 to-success/5',
+      iconBg: 'bg-success',
+      iconColor: 'text-success-foreground',
+    },
+    {
+      icon: BarChart3,
+      label: t('analytics'),
+      description: t('dataViz'),
+      path: '/analytics',
+      gradient: 'from-warning/20 to-warning/5',
+      iconBg: 'bg-warning',
+      iconColor: 'text-warning-foreground',
+    },
+    {
+      icon: HelpCircle,
+      label: t('help'),
+      description: t('tutorials'),
+      path: '/help',
+      gradient: 'from-chart-4/20 to-chart-4/5',
+      iconBg: 'bg-chart-4',
+      iconColor: 'text-white',
+    },
+  ];
 
   return (
     <div className={cn('grid grid-cols-2 md:grid-cols-4 gap-4', className)}>

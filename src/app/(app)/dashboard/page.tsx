@@ -16,6 +16,7 @@ import { ShortcutsGrid } from '@/components/dashboard/ShortcutsGrid';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const mockStats = {
   totalQueries: 1234,
@@ -71,11 +72,12 @@ const salesChartData = [
 ];
 
 export default function DashboardPage() {
-  const currentDate = new Date().toLocaleDateString('en-US', { 
-    weekday: 'long', 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+  const { t } = useTranslation();
+  const currentDate = new Date().toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   });
 
   return (
@@ -83,7 +85,7 @@ export default function DashboardPage() {
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard Overview</h1>
+          <h1 className="text-3xl font-bold tracking-tight">{t('dashboardOverview')}</h1>
           <p className="text-muted-foreground mt-1 flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             {currentDate}
@@ -91,33 +93,33 @@ export default function DashboardPage() {
         </div>
         <Button className="rounded-xl shadow-md hover:shadow-lg transition-all">
           <ArrowUpRight className="h-4 w-4 mr-2" />
-          View Reports
+          {t('viewReports')}
         </Button>
       </div>
 
       {/* Stats Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <MetricCard
-          title="Today's Sales"
+          title={t('todaySales')}
           value={`PKR ${(mockStats.todaySales / 1000).toFixed(0)}K`}
           change={23}
           trend="up"
           icon={TrendingUp}
         />
         <MetricCard
-          title="Active Employees"
+          title={t('activeEmployees')}
           value={mockStats.totalEmployees}
           icon={Users}
         />
         <MetricCard
-          title="Production Orders"
+          title={t('productionOrders')}
           value={mockStats.activeOrders}
           change={3}
           trend="up"
           icon={Package}
         />
         <MetricCard
-          title="Low Stock Alerts"
+          title={t('lowStockAlerts')}
           value={mockStats.lowStockItems}
           trend="down"
           icon={AlertTriangle}
@@ -135,9 +137,9 @@ export default function DashboardPage() {
         {/* Sales by Category Chart */}
         <Card className="border-border/50 shadow-md hover:shadow-lg transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-lg font-semibold">Weekly Sales by Category</CardTitle>
+            <CardTitle className="text-lg font-semibold">{t('weeklySales')}</CardTitle>
             <Button variant="ghost" size="sm" className="text-xs rounded-lg">
-              View Details
+              {t('viewDetails')}
             </Button>
           </CardHeader>
           <CardContent>
@@ -145,13 +147,13 @@ export default function DashboardPage() {
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={salesChartData}>
                   <CartesianGrid strokeDasharray="3 3" className="stroke-border/50" />
-                  <XAxis 
-                    dataKey="name" 
+                  <XAxis
+                    dataKey="name"
                     className="text-xs"
                     stroke="hsl(var(--muted-foreground))"
                   />
-                  <YAxis 
-                    className="text-xs" 
+                  <YAxis
+                    className="text-xs"
                     tickFormatter={(value) => `${value / 1000}K`}
                     stroke="hsl(var(--muted-foreground))"
                   />
@@ -165,9 +167,9 @@ export default function DashboardPage() {
                     }}
                     labelStyle={{ fontWeight: 600, marginBottom: '8px' }}
                   />
-                  <Bar dataKey="mens" name="Men's" fill="hsl(var(--accent))" radius={[6, 6, 0, 0]} />
-                  <Bar dataKey="womens" name="Women's" fill="hsl(var(--success))" radius={[6, 6, 0, 0]} />
-                  <Bar dataKey="kids" name="Kids" fill="hsl(var(--warning))" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="mens" name={t('mens')} fill="hsl(var(--accent))" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="womens" name={t('womens')} fill="hsl(var(--success))" radius={[6, 6, 0, 0]} />
+                  <Bar dataKey="kids" name={t('kids')} fill="hsl(var(--warning))" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
