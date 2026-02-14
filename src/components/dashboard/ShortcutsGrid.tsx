@@ -56,7 +56,7 @@ export function ShortcutsGrid({ className }: ShortcutsGridProps) {
       {shortcuts.map((shortcut, index) => (
         <Card
           key={shortcut.path}
-          className="relative p-5 cursor-pointer border-2 hover:border-accent/60 dark:hover:border-accent/70 hover:shadow-xl hover:scale-105 transition-all duration-300 group overflow-hidden"
+          className="relative p-5 cursor-pointer group overflow-hidden"
           onClick={() => router.push(shortcut.path)}
         >
           <div className={cn(

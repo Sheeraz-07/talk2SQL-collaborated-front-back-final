@@ -43,7 +43,7 @@ export function InsightsPanel({ insights, className }: InsightsPanelProps) {
   };
 
   return (
-    <Card className={cn('border hover:border-accent/50 hover:shadow-xl transition-all duration-300 overflow-hidden', className)}>
+    <Card className={cn('overflow-hidden', className)}>
       <div className="flex items-center justify-between p-5 pb-4 border-b bg-gradient-to-br from-chart-4/5 to-transparent">
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-2xl bg-gradient-to-br from-chart-4/20 to-chart-4/10 shadow-sm">

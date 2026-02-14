@@ -40,7 +40,7 @@ export function QuickQuery({ className }: QuickQueryProps) {
   };
 
   return (
-    <Card className={cn('border-2 hover:border-accent/60 dark:hover:border-accent/70 hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-[1.01]', className)}>
+    <Card className={cn('overflow-hidden', className)}>
       <CardHeader className="pb-3 bg-gradient-to-br from-accent/5 to-transparent">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">

@@ -56,15 +56,15 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
 
   const NavItem = ({ icon: Icon, label, path }: { icon: React.ElementType; label: string; path: string }) => {
     const isActive = pathname === path || pathname.startsWith(path + '/');
-    
+
     const content = (
       <Link
         href={path}
         className={cn(
           'group flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-300',
           'hover:bg-sidebar-accent hover:shadow-md hover:-translate-x-1',
-          isActive 
-            ? 'bg-accent text-accent-foreground font-bold shadow-lg hover:shadow-xl' 
+          isActive
+            ? 'bg-accent text-accent-foreground font-bold shadow-lg hover:shadow-xl'
             : 'text-sidebar-foreground/70 hover:text-sidebar-foreground font-medium',
           isCollapsed && 'justify-center px-2'
         )}
@@ -99,7 +99,7 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
   return (
     <aside
       className={cn(
-        'fixed left-0 top-0 z-40 h-screen bg-sidebar border-r border-sidebar-border transition-all duration-300',
+        'fixed left-0 top-0 z-40 h-screen bg-sidebar/80 backdrop-blur-xl border-r border-sidebar-border transition-all duration-300 shadow-xl',
         isCollapsed ? 'w-[72px]' : 'w-64'
       )}
     >
@@ -196,10 +196,10 @@ export function Sidebar({ isCollapsed, onToggle }: SidebarProps) {
             {!isCollapsed && (
               <Tooltip delayDuration={0}>
                 <TooltipTrigger asChild>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    onClick={logout} 
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={logout}
                     className="h-9 w-9 hover:bg-destructive/10 hover:text-destructive hover:rotate-12 transition-all duration-300"
                   >
                     <LogOut className="h-5 w-5" />

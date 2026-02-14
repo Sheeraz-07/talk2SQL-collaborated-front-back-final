@@ -62,26 +62,26 @@ const adminNavItems = [
 ];
 
 const notifications = [
-  { 
-    id: 1, 
-    title: 'Query completed', 
-    message: 'Your sales report is ready', 
+  {
+    id: 1,
+    title: 'Query completed',
+    message: 'Your sales report is ready',
     time: '2 min ago',
     isRead: false,
     type: 'success'
   },
-  { 
-    id: 2, 
-    title: 'New insight', 
-    message: 'Sales increased 23% this week', 
+  {
+    id: 2,
+    title: 'New insight',
+    message: 'Sales increased 23% this week',
     time: '1 hour ago',
     isRead: false,
     type: 'info'
   },
-  { 
-    id: 3, 
-    title: 'Database connected', 
-    message: 'Production DB is now online', 
+  {
+    id: 3,
+    title: 'Database connected',
+    message: 'Production DB is now online',
     time: '3 hours ago',
     isRead: true,
     type: 'success'
@@ -98,7 +98,7 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/60 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 shadow-sm">
       <div className="container flex h-14 items-center px-4 lg:px-6 max-w-full">
         {/* Logo & Brand */}
         <div className="flex items-center gap-3 flex-shrink-0">
@@ -116,60 +116,60 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
 
         {/* Center - Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-1 flex-1 justify-center">
-            {mainNavItems.map((item) => {
-              const isActive = pathname === item.path || pathname.startsWith(item.path + '/');
-              return (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className={cn(
-                    'flex items-center gap-1.5 px-3 py-1.5 rounded-full font-bold text-xs transition-all duration-200',
-                    'hover:bg-gradient-to-r hover:from-accent/30 hover:to-accent/20 hover:scale-105 hover:shadow-md dark:hover:from-accent/40 dark:hover:to-accent/25',
-                    isActive 
-                      ? 'bg-gradient-to-r from-accent/25 to-accent/15 text-accent shadow-md dark:from-accent/35 dark:to-accent/20' 
-                      : 'text-muted-foreground hover:text-foreground'
-                  )}
-                >
-                  {isActive && (
-                    <item.icon className={cn(
-                      'h-4 w-4',
-                      item.color
-                    )} />
-                  )}
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
+          {mainNavItems.map((item) => {
+            const isActive = pathname === item.path || pathname.startsWith(item.path + '/');
+            return (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={cn(
+                  'flex items-center gap-1.5 px-3 py-1.5 rounded-full font-bold text-xs transition-all duration-200',
+                  'hover:bg-gradient-to-r hover:from-accent/30 hover:to-accent/20 hover:scale-105 hover:shadow-md dark:hover:from-accent/40 dark:hover:to-accent/25',
+                  isActive
+                    ? 'bg-gradient-to-r from-accent/25 to-accent/15 text-accent shadow-md dark:from-accent/35 dark:to-accent/20'
+                    : 'text-muted-foreground hover:text-foreground'
+                )}
+              >
+                {isActive && (
+                  <item.icon className={cn(
+                    'h-4 w-4',
+                    item.color
+                  )} />
+                )}
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
 
-            {/* Admin Dropdown */}
-            {user?.role === 'admin' && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full font-bold text-xs text-muted-foreground hover:text-foreground hover:bg-gradient-to-r hover:from-accent/30 hover:to-accent/20 dark:hover:from-accent/40 dark:hover:to-accent/25 hover:scale-105 hover:shadow-md transition-all duration-200">
-                    <span>Admin</span>
-                    <ChevronDown className="h-3 w-3" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-52 rounded-lg">
-                  <DropdownMenuLabel className="font-bold text-sm">Administration</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  {adminNavItems.map((item) => (
-                    <DropdownMenuItem
-                      key={item.path}
-                      className="cursor-pointer hover:bg-accent/20 dark:hover:bg-accent/30 hover:text-accent transition-colors"
-                      onClick={() => router.push(item.path)}
-                    >
-                      <item.icon className="mr-2 h-4 w-4 text-accent" />
-                      <div>
-                        <div className="font-bold text-sm">{item.label}</div>
-                        <div className="text-xs text-muted-foreground">{item.desc}</div>
-                      </div>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-          </nav>
+          {/* Admin Dropdown */}
+          {user?.role === 'admin' && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full font-bold text-xs text-muted-foreground hover:text-foreground hover:bg-gradient-to-r hover:from-accent/30 hover:to-accent/20 dark:hover:from-accent/40 dark:hover:to-accent/25 hover:scale-105 hover:shadow-md transition-all duration-200">
+                  <span>Admin</span>
+                  <ChevronDown className="h-3 w-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-52 rounded-lg">
+                <DropdownMenuLabel className="font-bold text-sm">Administration</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {adminNavItems.map((item) => (
+                  <DropdownMenuItem
+                    key={item.path}
+                    className="cursor-pointer hover:bg-accent/20 dark:hover:bg-accent/30 hover:text-accent transition-colors"
+                    onClick={() => router.push(item.path)}
+                  >
+                    <item.icon className="mr-2 h-4 w-4 text-accent" />
+                    <div>
+                      <div className="font-bold text-sm">{item.label}</div>
+                      <div className="text-xs text-muted-foreground">{item.desc}</div>
+                    </div>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+        </nav>
 
         {/* Right Section */}
         <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -257,16 +257,16 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
           {/* Notifications */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                variant="ghost"
+                size="icon"
                 className="h-9 w-9 rounded-lg hover:bg-destructive/25 dark:hover:bg-destructive/35 hover:scale-105 hover:shadow-md transition-all duration-200 relative overflow-visible"
                 title="Notifications"
               >
                 <Bell className="h-4 w-4" />
                 {unreadCount > 0 && (
-                  <Badge 
-                    variant="destructive" 
+                  <Badge
+                    variant="destructive"
                     className="absolute -top-0.5 -right-0.5 h-5 w-5 rounded-full p-0 flex items-center justify-center text-[10px] font-bold border-2 border-background shadow-lg"
                   >
                     {unreadCount}
@@ -286,8 +286,8 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
               <DropdownMenuSeparator />
               <div className="max-h-[320px] overflow-y-auto">
                 {notifications.map((notification) => (
-                  <DropdownMenuItem 
-                    key={notification.id} 
+                  <DropdownMenuItem
+                    key={notification.id}
                     className={cn(
                       "flex flex-col items-start p-3 cursor-pointer transition-colors",
                       "hover:bg-accent/10",
@@ -336,14 +336,14 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 onClick={() => router.push('/settings')}
                 className="cursor-pointer hover:bg-accent/10 transition-colors font-bold"
               >
                 <Settings className="mr-2 h-4 w-4 text-accent" />
                 Settings
               </DropdownMenuItem>
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 onClick={() => router.push('/help')}
                 className="cursor-pointer hover:bg-accent/10 transition-colors font-bold"
               >
@@ -351,7 +351,7 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
                 Help & Support
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 onClick={logout}
                 className="cursor-pointer hover:bg-destructive/10 transition-colors font-bold text-destructive focus:text-destructive"
               >
