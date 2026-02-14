@@ -95,7 +95,7 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
             <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
               <Sparkles className="h-5 w-5 text-primary" />
             </div>
-            <span className="bg-gradient-to-br from-primary to-primary/60 bg-clip-text text-transparent">
+            <span className="hidden sm:inline-block bg-gradient-to-br from-primary to-primary/60 bg-clip-text text-transparent">
               Talk2SQL
             </span>
           </Link>
@@ -125,7 +125,7 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
         </nav>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-2 flex-shrink-0 ml-auto">
+        <div className="flex items-center gap-0.5 sm:gap-2 flex-shrink-0 ml-auto">
           {/* Search */}
           <DropdownMenu open={searchOpen} onOpenChange={setSearchOpen}>
             <DropdownMenuTrigger asChild>
@@ -145,7 +145,7 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
           </DropdownMenu>
 
           {/* Language Toggle */}
-          <LanguageToggle current={language} onChange={setLanguage} className="mr-1" />
+          <LanguageToggle current={language} onChange={setLanguage} className="sm:mr-1" />
 
           {/* Theme Toggle */}
           <Button
@@ -199,8 +199,8 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
           {/* User Profile */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-9 gap-2 pl-2 pr-3 rounded-full ml-1">
-                <Avatar className="h-6 w-6">
+              <Button variant="ghost" className="h-9 w-9 sm:w-auto sm:gap-2 p-0 sm:pl-2 sm:pr-3 rounded-full ml-1">
+                <Avatar className="h-6 w-6 sm:h-6 sm:w-6">
                   <AvatarImage src={user?.avatar} />
                   <AvatarFallback className="text-[10px] bg-primary/10 text-primary font-bold">
                     {user?.name?.charAt(0) || 'U'}
@@ -209,7 +209,7 @@ export function Header({ title, onMobileMenuClick }: HeaderProps) {
                 <div className="flex flex-col items-start text-xs hidden sm:flex">
                   <span className="font-medium">{user?.name || 'User'}</span>
                 </div>
-                <ChevronDown className="h-3 w-3 text-muted-foreground opacity-50" />
+                <ChevronDown className="h-3 w-3 text-muted-foreground opacity-50 hidden sm:block" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 rounded-xl p-1">
